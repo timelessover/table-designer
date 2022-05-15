@@ -39,7 +39,7 @@ const selectOptionConfig = {
 const WorkBenchTable = () => {
   const { app } = useStore();
   const update = useUpdate();
-
+  console.log(app.schema)
   const columns = (): ProColumns[] => {
     const cols = app.schema?.columns?.map((item) => {
       return toJS(item);
@@ -107,7 +107,7 @@ const WorkBenchTable = () => {
 
   React.useEffect(() => {
     update();
-  }, [JSON.stringify({ ...app.schema.extra, ...app.schema.operation })]);
+  }, [JSON.stringify({ ...app.schema })]);
 
   const toolBarRender = () => {
     const BarRenderArray = [];
