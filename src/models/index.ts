@@ -31,7 +31,12 @@ export class Store {
   mockDataSource: any;
   mockToggle: boolean;
   constructor() {
-    this.schema = {};
+    this.schema = {
+      columns:[],
+      basic:{},
+      operation: null,
+      extra:null,
+    };
     this.dataSource = [];
     this.mockDataSource = [];
     this.mockToggle = false;
@@ -94,13 +99,13 @@ export class Store {
   setSaveSchema() {
     this.schema = window.localStorage.getItem("savedSchema")
       ? JSON.parse(window.localStorage.getItem("savedSchema"))
-      : {};
+      : this.schema;
   }
 
   init() {
     define(this, {
       mockDataSource: observable,
-      schema: observable,
+      schema: observable.deep,
       setMockDataSource: action,
       generateMockData: action,
       setOperationSchema: action,

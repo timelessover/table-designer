@@ -180,6 +180,7 @@ function ColumnsForm() {
           onFormMount((form)=>{
             form.setValues(app.schema)
           })
+          
         },
       }),
     []
