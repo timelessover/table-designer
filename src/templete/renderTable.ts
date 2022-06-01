@@ -5,30 +5,30 @@ import { toJS } from "@formily/reactive";
 const renderTable = () => {
   const { app } = useStore();
 
-  const toolBarRender = () => {
-    const BarRenderArray = [];
-    if (app.schema.extra?.add) {
-      BarRenderArray.push(
-        `<Button
-          type="primary"
-          key="add"
-          onClick={() => EditDialog("add")}
-        >
-          新增
-        </Button>`
-      );
-    }
+  // const toolBarRender = () => {
+  //   const BarRenderArray = [];
+  //   if (app.schema.extra?.add) {
+  //     BarRenderArray.push(
+  //       `<Button
+  //         type="primary"
+  //         key="add"
+  //         onClick={() => EditDialog("add")}
+  //       >
+  //         新增
+  //       </Button>`
+  //     );
+  //   }
 
-    if (app.schema.extra?.export) {
-      BarRenderArray.push(`<Button key="export">导出</Button>`);
-    }
+  //   if (app.schema.extra?.export) {
+  //     BarRenderArray.push(`<Button key="export">导出</Button>`);
+  //   }
 
-    if (app.schema.extra?.lead) {
-      BarRenderArray.push(`<Button key="lead">导入</Button>`);
-    }
+  //   if (app.schema.extra?.lead) {
+  //     BarRenderArray.push(`<Button key="lead">导入</Button>`);
+  //   }
 
-    return BarRenderArray;
-  };
+  //   return BarRenderArray;
+  // };
 
   const columnsRender = () => {
     const cols = app.schema?.columns.map((item) => {
@@ -92,44 +92,39 @@ const renderTable = () => {
 
   return `
 import React from 'react';
-import { Button, Tooltip } from 'antd';
 import type { ProColumns } from '@ant-design/pro-table';
-import ProTable, { TableDropdown } from '@ant-design/pro-table';
+import ProTable from '@ant-design/pro-table';
+import { apis } from './apis';
+import type { TableListItem } from './apis';
+
 
 const columns: ProColumns<TableListItem>[] = [
   ${outputColumns.substr(1, outputColumns.length - 2)},
-  
- 
 ];
 
-export default () => {
+const Table = () => {
   return (
     <ProTable<TableListItem>
       columns={columns}
-      request={(params, sorter, filter) => {
-        // 表单搜索项会从 params 传入，传递给后端接口。
-        console.log(params, sorter, filter);
-        return Promise.resolve({
-          data: tableListDataSource,
-          success: true,
-        });
+      request={async (params) => {
+        return await apis.query(params);
       }}
       rowKey="${app.schema.basic.rowKey}"
       pagination={{
         showQuickJumper: true,
       }}
       search={{
-        collapsed: false,
+        defaultCollapsed :${app.schema.basic.defaultCollapsed},
       }}
-      scroll={{x: ${app.schema.basic.scrollX || 200}}}
+      scroll={{x: ${app.schema.basic.scrollX}}}
       dateFormatter="string"
       headerTitle="${app.schema.basic.headerTitle}"
-      toolBarRender={() => [
-        ${toolBarRender().join(",")}
-      ]}
     />
   );
-};`;
+};
+
+export default Table;
+`;
 };
 
 export default renderTable;

@@ -1,16 +1,13 @@
-import React, { useMemo } from "react";
-import { Button, Popconfirm, Space, Table, TableProps, Tooltip } from "antd";
-import { DownOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import React from "react";
+import { Button, Popconfirm, Space, Table } from "antd";
 import type { ProColumns, ProTableProps } from "@ant-design/pro-table";
-import ProTable, { TableDropdown } from "@ant-design/pro-table";
+import ProTable from "@ant-design/pro-table";
 import { useStore } from "@/context";
 import { toJS } from "@formily/reactive";
 import { observer } from "@formily/reactive-react";
 import { useUpdate } from "ahooks";
 import { isEmpty } from "@/shared/isEmpty";
-import { createSchemaField } from "@formily/react";
 import { EditDialog } from "../WorkBenchDialog";
-import { LogDialog } from "../WorkBenchlog";
 
 
 const selectOptionConfig = {
@@ -136,10 +133,10 @@ const WorkBenchTable = () => {
 
   let config: ProTableProps<any, any, any> = {
     toolBarRender,
-    rowKey: app.schema?.basic?.rowKey || "string",
-    headerTitle: app.schema?.basic?.headerTitle || "标题",
+    rowKey: app.schema?.basic?.rowKey,
+    headerTitle: app.schema?.basic?.headerTitle,
     search: {
-      defaultCollapsed: false,
+      defaultCollapsed: app.schema?.basic?.defaultCollapsed,
     },
     scroll: { x: app.schema?.basic?.scrollX || 100 },
   };
@@ -160,7 +157,6 @@ const WorkBenchTable = () => {
       columns={columns()}
       dataSource={app.mockDataSource.data}
       request={(params, sorter, filter) => {
-        console.log(params, sorter, filter);
         return Promise.resolve({
           success: true,
         });

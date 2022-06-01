@@ -1,4 +1,3 @@
-import { useStore } from "@/context";
 import { RlxColumnsType } from "@/models";
 import { FormDialog, Input, FormItem, FormLayout } from "@formily/antd";
 import { createSchemaField } from "@formily/react";
@@ -22,7 +21,7 @@ export const EditDialog: (
   columns: RlxColumnsType["columns"],
   type: keyof typeof DiaLogEnum,
   record?: any
-) => void = (columns, type = "add",record?) => {
+) => void = (columns, type = "add", record?) => {
   return FormDialog(
     { title: DiaLogEnum[type], destroyOnClose: true, maskClosable: false },
     () => {

@@ -38,6 +38,102 @@ const SchemaField = createSchemaField({
     Card
   },
 });
+
+const enumArray: ISchema = {
+  type: "array",
+  "x-component": "ArrayItems",
+  "x-decorator": "FormItem",
+  items: {
+    type: "object",
+    properties: {
+      card: {
+        type: "void",
+        "x-component": "Card",
+        "x-component-props": {
+          bodyStyle: {
+            padding: 0
+          },
+          style: {
+            marginBottom: 4
+          }
+        },
+        properties: {
+          space: {
+            type: "void",
+            "x-component": "Space",
+            "x-component-props": {
+              style: {
+                alignItems: 'normal',
+              }
+            },
+            properties: {
+              index: {
+                type: 'void',
+                'x-decorator': 'FormItem',
+                'x-component': 'ArrayItems.Index',
+              },
+              space: {
+                type: "void",
+                "x-component": "Space",
+                "x-component-props": {
+                  wrap: true,
+                  direction: 'vertical',
+
+                },
+                properties: {
+                  key: {
+                    type: "string",
+                    title: "key",
+                    "x-component": "Input",
+                    "x-decorator": "FormItem",
+                  },
+                  label: {
+                    type: "string",
+                    title: "label",
+                    "x-decorator": "FormItem",
+                    "x-component": "Input",
+                  },
+                  // tag: {
+                  //   type: "string",
+                  //   title: "id",
+                  //   "x-component": "Input",
+                  //   "x-decorator": "FormItem",
+                  // },
+
+                },
+
+              },
+              remove: {
+                type: "void",
+                "x-decorator": "FormItem",
+                "x-component": "ArrayItems.Remove",
+              },
+            },
+
+          },
+
+        }
+
+      }
+    },
+  },
+  properties: {
+    add: {
+      type: "void",
+      title: "新增枚举",
+      "x-component": "ArrayItems.Addition",
+    },
+  },
+  "x-reactions": {
+    dependencies: ['.valueType'],
+    fulfill: {
+      state: {
+        visible: `{{$deps[0] === 'select'}}`
+      }
+    }
+  }
+}
+
 const schema: ISchema = {
   type: "object",
   properties: {
@@ -48,23 +144,23 @@ const schema: ISchema = {
       items: {
         type: "object",
         properties: {
-          card:{
+          card: {
             type: "void",
             "x-component": "Card",
-            "x-component-props":{
-                bodyStyle:{
-                  padding:0
-                },
-                style:{
-                  marginBottom: 4
-                }
+            "x-component-props": {
+              bodyStyle: {
+                padding: 0
+              },
+              style: {
+                marginBottom: 4
+              }
             },
-            properties:{
+            properties: {
               space: {
                 type: "void",
                 "x-component": "Space",
-                "x-component-props":{
-                  style:{ 
+                "x-component-props": {
+                  style: {
                     alignItems: 'normal',
                   }
                 },
@@ -85,7 +181,7 @@ const schema: ISchema = {
                     "x-component-props": {
                       wrap: true,
                       direction: 'vertical',
-                      
+
                     },
                     properties: {
                       title: {
@@ -113,14 +209,15 @@ const schema: ISchema = {
                           style: {
                             width: 150,
                           },
-                          showSearch:true,
+                          showSearch: true,
                           filterOption: (input, option) =>
                             option.label
                               .toLowerCase()
                               .indexOf(input.toLowerCase()) >= 0,
                         },
-                        "default":"text"
+                        "default": "text"
                       },
+                      enum: enumArray,
                       hideInSearch: {
                         type: "string",
                         title: "搜素栏隐藏",
@@ -133,13 +230,13 @@ const schema: ISchema = {
                         "x-component": "Switch",
                         "x-decorator": "FormItem",
                       },
-                      width:{
+                      width: {
                         type: "number",
                         title: "列宽度",
                         "x-component": "NumberPicker",
                         "x-decorator": "FormItem",
                       },
-                      fixed:{
+                      fixed: {
                         type: "boolean",
                         title: "固定列",
                         "x-component": "Switch",
@@ -156,7 +253,7 @@ const schema: ISchema = {
               },
             }
           }
-          
+
         },
       },
       properties: {
@@ -177,10 +274,10 @@ function ColumnsForm() {
     () =>
       createForm({
         effects: () => {
-          onFormMount((form)=>{
+          onFormMount((form) => {
             form.setValues(app.schema)
           })
-          
+
         },
       }),
     []

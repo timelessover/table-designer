@@ -6,7 +6,7 @@ import React, { useMemo } from 'react';
 import { Checkbox, FormItem, Switch, Submit } from '@formily/antd'
 import { createForm, onFormValuesChange } from '@formily/core'
 import { FormProvider, createSchemaField, ISchema } from '@formily/react'
-import { Card,Button } from 'antd'
+import { Card, Button } from 'antd'
 import { useStore } from '@/context';
 
 const SchemaField = createSchemaField({
@@ -26,7 +26,6 @@ const schema: ISchema = {
       title: 'mock数据',
       'x-decorator': 'FormItem',
       'x-component': 'Button',
-
     },
   },
 }
@@ -54,12 +53,9 @@ function DataSourceSettings() {
 
   return (
     <Card title="数据源信息" style={{ width: 300 }}>
-      <Button onClick={()=>{
-        app.generateMockData()
-      }}>生成mock数据</Button>
-      {/* <FormProvider form={form}>
-        <SchemaField schema={schema} />
-      </FormProvider> */}
+      {/* <Button onClick={() => {
+        
+      }}>自定义数据源</Button> */}
     </Card>
   );
 }

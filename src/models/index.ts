@@ -8,6 +8,8 @@ interface BasicSchema {
   rowKey: TableProps<any>["rowKey"];
   headerTitle: string;
   scrollX: number | string;
+  defaultCollapsed: boolean;
+  [key: string]: any;
 }
 
 type OperationItem = "edit" | "detail" | "log" | "delete";
@@ -19,7 +21,7 @@ type ExtraItem = "add" | "export" | "lead" | "delete";
 type ExtraSchema = Record<ExtraItem, boolean>;
 
 export type RlxColumnsType = {
-  basic: Partial<BasicSchema>;
+  basic: BasicSchema;
   columns: ProColumns[];
   operation: OperationSchema;
   extra: ExtraSchema;
@@ -33,7 +35,13 @@ export class Store {
   constructor() {
     this.schema = {
       columns: [],
-      basic: {},
+      basic: {
+        showSelect: false,
+        rowKey: "id",
+        headerTitle: "查询结果",
+        scrollX: 200,
+        defaultCollapsed: false
+      },
       operation: null,
       extra: null,
     };

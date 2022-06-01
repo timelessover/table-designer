@@ -1,6 +1,7 @@
 import MonacoInput from "@/components/MonacoInput";
-import renderDiaLog from "@/core/renderModal";
-import renderTable from "@/core/renderTable";
+import renderDiaLog from "@/templete/renderModal";
+import renderTable from "@/templete/renderTable";
+import renderApi from '@/templete/renderApi'
 import { Tabs } from "antd";
 import React from "react";
 
@@ -12,8 +13,8 @@ const panelList = [
     content: renderTable,
   },
   {
-    tab: "新增/编辑/详情",
-    content: renderDiaLog,
+    tab: "api",
+    content: renderApi,
   },
 ];
 

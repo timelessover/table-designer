@@ -38,29 +38,35 @@ const SchemaField = createSchemaField({
 const schema: ISchema = {
   type: "object",
   properties: {
-    showSelect:{
+    showSelect: {
       type: 'boolean',
       title: '批量操作',
       'x-decorator': 'FormItem',
       'x-component': 'Switch',
     },
-    rowKey:{
+    rowKey: {
       type: 'string',
       title: 'rowKey',
       'x-decorator': 'FormItem',
       'x-component': 'Input',
     },
-    headerTitle:{
+    headerTitle: {
       type: 'string',
-      title: '标题',
+      title: '头部标题',
       'x-decorator': 'FormItem',
       'x-component': 'Input',
     },
-    scrollX:{
+    scrollX: {
       type: 'string',
       title: 'x轴滚动宽度',
       'x-decorator': 'FormItem',
       'x-component': 'NumberPicker',
+    },
+    defaultCollapsed: {
+      type: 'boolean',
+      title: '默认收起搜索栏',
+      'x-decorator': 'FormItem',
+      'x-component': 'Switch',
     },
   },
 };
@@ -72,12 +78,12 @@ function ExtraForm() {
     () =>
       createForm({
         effects: () => {
-          onFormMount((form)=>{
+          onFormMount((form) => {
             form.setValues(app.schema?.basic)
           }),
-          onFormValuesChange((form) => {
-            app.setBasicSchema(form.values);
-          });
+            onFormValuesChange((form) => {
+              app.setBasicSchema(form.values);
+            });
         },
       }),
     []
