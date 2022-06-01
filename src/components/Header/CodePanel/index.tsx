@@ -1,5 +1,5 @@
 import MonacoInput from "@/components/MonacoInput";
-import renderDiaLog from "@/core/renderDialog";
+import renderDiaLog from "@/core/renderModal";
 import renderTable from "@/core/renderTable";
 import { Tabs } from "antd";
 import React from "react";

@@ -17,13 +17,13 @@ setNpmCDNRegistry('//unpkg.com')
 export default observer(() => {
   return (
     <div>
-      <Header/>
-      <div className={cls(prefix +'-bg-container')}>
-        <LeftMenusSettings/>
-        <WorkBench/>
-        <DataSourceSettings/>
+      <Header />
+      <div className={cls(prefix + '-bg-container')}>
+        <LeftMenusSettings />
+        <WorkBench />
+        <DataSourceSettings />
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 });

@@ -7,7 +7,7 @@ interface BasicSchema {
   showSelect: boolean;
   rowKey: TableProps<any>["rowKey"];
   headerTitle: string;
-  scrollX:number | string;
+  scrollX: number | string;
 }
 
 type OperationItem = "edit" | "detail" | "log" | "delete";
@@ -32,10 +32,10 @@ export class Store {
   mockToggle: boolean;
   constructor() {
     this.schema = {
-      columns:[],
-      basic:{},
+      columns: [],
+      basic: {},
       operation: null,
-      extra:null,
+      extra: null,
     };
     this.dataSource = [];
     this.mockDataSource = [];
@@ -47,7 +47,7 @@ export class Store {
 
   generateMockData() {
     if (this.schema.columns) {
-      let map = {};
+      const map = {};
       this.schema.columns.forEach((item) => {
         if (/date|time/.test(item["valueType"] as string)) {
           map[item["dataIndex"] as string] = "@dateTime";
